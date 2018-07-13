@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    
+    .row
+        .col.s8
+            ul.collapsible
+                each Objectif in allObjectifs 
+                    li
+                        .collapsible-header
+                            span= Objectif.id + ". " + Objectif.name 
+                        .collapsible-body
+                            ul.collapsible.expandable
+                                each Mesure, index in Objectif.mesures
+                                    li
+                                        .collapsible-header
+                                            span= Objectif.id + "." + `${index+1}` + " " + Mesure.name
+                                        .collapsible-body   
+                                            each ODD_mesure, index2 in Mesure.odd_mesures
+                                                .row.pers-tab
+                                                    .input-field.col.s1.pers-imgOdd
+                                                        img(src=`${ODD_mesure.image}`)
+                                                    .input-field.col.s8
+                                                        input.pers-mesureName(id="mesureName" + index + index2, type="text", disabled="disabled", value=`${ODD_mesure.name}`)
+                                                    .input-field.col.s2.pers-span
+                                                        input.pourcentage(id="pourcentage"+ Mesure.id + "_"+ ODD_mesure.id, onchange='savePercent()', type='number' data-min='0' data-max='100' value=`${ODD_mesure.mesure_odd.pourcentage}`)
+                                                        label(for="pourcentage" + Mesure.id + "_"+ ODD_mesure.id) Pourcentage                                                    
+        .col.s4
+            #view    
+                script.
+                    vegaEmbed('#view', '/graphMesure.json');
+        .col.s4
+            #view1  
+                script.
+                    vegaEmbed('#view1', '/graphOdd.json');

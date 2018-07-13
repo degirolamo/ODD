@@ -1,0 +1,42 @@
+.demo {
+    /* for IE10+ touch devices */
+    touch-action:none;
+}
+
+#container {
+    position:relative;
+    background-color: #aaaaaa;
+    border: 5px solid #346789;
+    height: 300px;
+  }
+
+/** ELEMENT POSITIONS **/
+#div1 { top:10px;left:10px; }
+#div2 { top:10px; left:200px; }
+
+/** ELEMENTS **/
+#div1, #div2 {
+    font-family: serif;
+    font-style: italic;
+    background-color: white;
+    border: 1px solid #346789;
+    text-align: center;
+    z-index: 24;
+    cursor: pointer;
+    box-shadow: 2px 2px 19px #aaa;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    position: absolute;
+    color: black;
+    padding-top: 5px;
+    width: 140px;
+    height: 120px;
+    line-height: 12px;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+};

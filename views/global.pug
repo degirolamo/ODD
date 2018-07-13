@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  
+
+  ul.collapsible.expandable
+    each Theme in allThemes 
+      li
+        .collapsible-header
+          span= Theme.id + ". " + Theme.name 
+        .collapsible-body
+          each Odd in Theme.odds
+            .row.pers-tab
+              .col.s1
+                span
+                    img(src=`${Odd.image}`)
+              .col.s6.pers-span
+                span= Odd.name
+              .col.s5.pers-span
+                span.spanIndex #{Math.round(100/Theme.odds.length*100)/100+"%"}
+
+  #view 
+    script.
+      vegaEmbed('#view', '/graphTheme.json');

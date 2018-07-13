@@ -1,0 +1,29 @@
+extends layout
+block extraHeader
+  link(rel='stylesheet', href='/css/plumb.css')
+  link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+  link(href='/css/font-awesome.min.css', rel='stylesheet')
+  link(rel='stylesheet', href='/css/jsplumbtoolkit-defaults.css')
+  link(rel='stylesheet', href='/css/jsplumbtoolkit-demo.css')
+  link(rel='stylesheet', href='app.css')
+
+  script(src='/js/jsplumbtoolkit.js')
+  script(src='/js/app.js')
+
+  
+
+block content
+  h3= "Liens mesures et ODD"
+
+
+  #container.drag-drop
+    #div1.window Mesures
+      #element1
+    #div2.window ODD
+      #element2 
+
+  script(src="/js/plumb.js")
+  
+
+  
+

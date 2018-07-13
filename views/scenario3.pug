@@ -1,0 +1,15 @@
+extends layout
+
+block content
+
+    form(action='#')
+        .file-field.input-field
+            .btn
+                span File
+                input(type='file')
+            .file-path-wrapper
+                input.file-path.validate(type='text', placeholder='Choisir un fichier')
+        .pers-div
+            button.btn.waves-effect.waves-light.pers-btn(type='submit' onclick='saveLinks()')
+                | Submit
+                i.material-icons.right send

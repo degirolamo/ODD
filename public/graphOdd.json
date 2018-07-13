@@ -1,0 +1,204 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v4.json",
+    "width": 200,
+    "height": 200,
+    "padding": 5,
+    "autosize": "pad",
+    "data": [
+        {
+            "name": "source",
+            "url": "/dbOdd.json",
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "datum['ODD'] != null && datum['Objectif'] != null && datum['pourcentage'] != null"
+                }
+            ]
+        },
+        {
+            "name": "summary",
+            "source": "source",
+            "transform": [
+                {
+                    "type": "extent",
+                    "field": "ODD",
+                    "signal": "hp_extent"
+                },
+                {
+                    "type": "bin",
+                    "field": "ODD",
+                    "maxbins": 10,
+                    "extent": {
+                        "signal": "hp_extent"
+                    },
+                    "as": [
+                        "hp0",
+                        "hp1"
+                    ]
+                },
+                {
+                    "type": "extent",
+                    "field": "Objectif",
+                    "signal": "mpg_extent"
+                },
+                {
+                    "type": "bin",
+                    "field": "Objectif",
+                    "maxbins": 10,
+                    "extent": {
+                        "signal": "mpg_extent"
+                    },
+                    "as": [
+                        "mpg0",
+                        "mpg1"
+                    ]
+                },
+                {
+                    "type": "extent",
+                    "field": "pourcentage",
+                    "signal": "mp_extent"
+                },
+                {
+                    "type": "bin",
+                    "field": "pourcentage",
+                    "maxbins": 10,
+                    "extent": {
+                        "signal": "mp_extent"
+                    },
+                    "as": [
+                        "mp0",
+                        "mp1"
+                    ]
+                },
+                {
+                    "type": "aggregate",
+                    "groupby": [
+                        "hp0",
+                        "hp1",
+                        "mpg0",
+                        "mpg1",
+                        "mp0",
+                        "mp1"
+                        
+                    ]
+                }
+            ]
+        }
+    ],
+    "scales": [
+        {
+            "name": "x",
+            "type": "linear",
+            "round": true,
+            "nice": true,
+            "zero": true,
+            "domain": {
+                "data": "source",
+                "field": "ODD"
+            },
+            "range": "width"
+        },
+        {
+            "name": "y",
+            "type": "linear",
+            "round": true,
+            "nice": true,
+            "zero": true,
+            "domain": {
+                "data": "source",
+                "field": "Objectif"
+            },
+            "range": "height"
+        },
+        {
+            "name": "size",
+            "type": "linear",
+            "zero": true,
+            "domain": {
+                "data": "source",
+                "field": "pourcentage"
+            },
+            "range": [
+                0,
+                360
+            ]
+        }
+    ],
+    "axes": [
+        {
+            "scale": "x",
+            "grid": true,
+            "domain": false,
+            "orient": "bottom",
+            "tickCount": 5,
+            "title": "ODD"
+        },
+        {
+            "scale": "y",
+            "grid": true,
+            "domain": false,
+            "orient": "left",
+            "titlePadding": 5,
+            "title": "Objectif"
+        }
+    ],
+    "legends": [
+        {
+            "size": "size",
+            "title": "Pourcentage",
+            "format": "s",
+            "encode": {
+                "symbols": {
+                    "update": {
+                        "strokeWidth": {
+                            "value": 2
+                        },
+                        "stroke": {
+                            "value": "#4682b4"
+                        },
+                        "shape": {
+                            "value": "circle"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "marks": [
+        {
+            "name": "marks",
+            "type": "symbol",
+            "from": {
+                "data": "summary"
+            },
+            "encode": {
+                "update": {
+                    "x": {
+                        "scale": "x",
+                        "signal": "(datum.hp0 + datum.hp1) / 2"
+                    },
+                    "y": {
+                        "scale": "y",
+                        "signal": "(datum.mpg0 + datum.mpg1) / 2"
+                    },
+                    "size": {
+                        "scale": "size",
+                        "field": "count"
+                    },
+                    "shape": {
+                        "value": "circle"
+                    },
+                    "strokeWidth": {
+                        "value": 2
+                    },
+                    "stroke": {
+                        "value": "#4682b4"
+                    },
+                    "fill": {
+                        "value": "transparent"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title= title
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    link(rel='stylesheet', href='/css/materialize.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/css/export.css')
+    script(src="/js/jquery-3.3.1.min.js")
+    script(src="/js/materialize.min.js")
+    script(src="/js/jsplumb.min.js")
+    script(src='https://vega.github.io/vega/vega.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2')
+    script(src='https://cdn.jsdelivr.net/npm/vega-lite@2.4.3')
+    script(src='https://cdn.jsdelivr.net/npm/vega-embed@3.13.2')  
+    script(src="/js/default.js")
+    
+    block extraHeader
+  body
+    header
+      
+            ul.tabs.tabs-fixed-width.tab-demo.z-depth-1.pers-navbar
+              li.tab
+                a(href='/') Champs thématiques du Valais
+              li.tab
+                a(href='/mesure') Programme gouvernementale
+              li.tab  
+                a(href='/scenario3') Scénario 3
+    main
+      .container
+        block content
+    footer.page-footer.pers-footer
+      .container
+        .row.pers-footer
+          .col.l6.s12
+              h5
+                img.pers-footer-img(src='/images/logoHes.png')
+          block footer
+
