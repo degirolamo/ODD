@@ -14,14 +14,18 @@
 */
 .jtk-node[data-jtk-node-id="Champs thématique du Valais"] {
     position: absolute;
-    top: -447px;
-    left:-405px;
+    top: -574px;
+    left:-492px;
 }
 
 .jtk-node[data-jtk-node-id="ODD"] {
     position: absolute;
-    top: -447px;
-    left: -2px;
+    top: -574px;
+    left: 124px;
+}
+
+.jtk-surface-canvas {
+    transform: scale(0.7) !important;
 }
 
 /*

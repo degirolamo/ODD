@@ -7,7 +7,6 @@
     color: white;
     background-color: #489ea5;
     border-right: 10px solid ;
-
 }
 
 .vega-embed .vega-actions a:hover {
@@ -16,4 +15,17 @@ background-color: #5eb4bb;
 
 .vega-actions-wrapper {
     margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.vega-bind input {
+    width: 100%;
+}
+
+#view3 .vega-actions-wrapper{
+    margin-top: 40px;
+}
+
+.vega-actions a:nth-child(4){
+    display: none;
 }

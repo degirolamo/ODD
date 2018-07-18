@@ -1,0 +1,166 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v4.json",
+    "description": "Comparaison d'accomplissement des ODD entre l'Amérique et l'Europe",
+    "height": 400,
+    "padding": 5,
+  
+    "signals": [
+      { "name": "chartWidth", "value": 300 },
+      { "name": "chartPad", "value": 20 },
+      { "name": "width", "update": "2 * chartWidth + chartPad" },
+      { "name": "Year", "value": 2018,
+        "bind": {"input": "range", "min": 2015, "max": 2018, "step": 1} }
+    ],
+  
+    "data": [
+      {
+        "name": "odd",
+        "url": "/dbPyramid.json"
+      },
+      {
+        "name": "oddYear",
+        "source": "odd",
+        "transform": [
+          {"type": "filter", "expr": "datum.Year == Year"}
+        ]
+      },
+      {
+        "name": "europe",
+        "source": "oddYear",
+        "transform": [
+          {"type": "filter", "expr": "datum.Continent == 1"}
+        ]
+      },
+      {
+        "name": "amerique",
+        "source": "oddYear",
+        "transform": [
+          {"type": "filter", "expr": "datum.Continent == 2"}
+        ]
+      },
+      {
+        "name": "Odd",
+        "source": "odd",
+        "transform": [
+          { "type": "aggregate", "groupby": ["Odd"] }
+        ]
+      }
+    ],
+  
+    "scales": [
+      {
+        "name": "y",
+        "type": "band",
+        "range": [{"signal": "height"}, 0],
+        "round": true,
+        "domain": {"data": "Odd", "field": "Odd"}
+      },
+      {
+        "name": "c",
+        "type": "ordinal",
+        "domain": [1, 2],
+        "range": ["#1f77b4", "#3fe260"]
+      }
+    ],
+  
+    "marks": [
+      {
+        "type": "text",
+        "interactive": false,
+        "from": {"data": "Odd"},
+        "encode": {
+          "enter": {
+            "x": {"signal": "chartWidth + chartPad / 2"},
+            "y": {"scale": "y", "field": "Odd", "band": 0.5},
+            "text": {"field": "Odd"},
+            "baseline": {"value": "middle"},
+            "align": {"value": "center"},
+            "fill": {"value": "#000"}
+          }
+        }
+      },
+      {
+        "type": "group",
+  
+        "encode": {
+          "update": {
+            "x": {"value": 0},
+            "height": {"signal": "height"}
+          }
+        },
+  
+        "scales": [
+          {
+            "name": "x",
+            "type": "linear",
+            "range": [{"signal": "chartWidth"}, 0],
+            "nice": true, "zero": true,
+            "domain": {"data": "odd", "field": "Pourcentage"}
+          }
+        ],
+  
+        "axes": [
+          {"orient": "bottom", "scale": "x", "format": "s"}
+        ],
+  
+        "marks": [
+          {
+            "type": "rect",
+            "from": {"data": "amerique"},
+            "encode": {
+              "enter": {
+                "x": {"scale": "x", "field": "Pourcentage"},
+                "x2": {"scale": "x", "value": 0},
+                "y": {"scale": "y", "field": "Odd"},
+                "height": {"scale": "y", "band": 1, "offset": -1},
+                "fillOpacity": {"value": 0.6},
+                "fill": {"scale": "c", "field": "Continent"}
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+  
+        "encode": {
+          "update": {
+            "x": {"signal": "chartWidth + chartPad"},
+            "height": {"signal": "height"}
+          }
+        },
+  
+        "scales": [
+          {
+            "name": "x",
+            "type": "linear",
+            "range": [0, {"signal": "chartWidth"}],
+            "nice": true, "zero": true,
+            "domain": {"data": "odd", "field": "Pourcentage"}
+          }
+        ],
+  
+        "axes": [
+          {"orient": "bottom", "scale": "x", "format": "s"}
+        ],
+  
+        "marks": [
+          {
+            "type": "rect",
+            "from": {"data": "europe"},
+            "encode": {
+              "enter": {
+                "x": {"scale": "x", "field": "Pourcentage"},
+                "x2": {"scale": "x", "value": 0},
+                "y": {"scale": "y", "field": "Odd"},
+                "height": {"scale": "y", "band": 1, "offset": -1},
+                "fillOpacity": {"value": 0.6},
+                "fill": {"scale": "c", "field": "Continent"}
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

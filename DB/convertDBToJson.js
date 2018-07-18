@@ -1,5 +1,6 @@
 var database = require("./database");
 var fs = require('fs');
+var csvToJson = require('convert-csv-to-json');
 
 function convertDBTheme() {
     return new Promise((resolve) => {
@@ -123,6 +124,53 @@ function convertDBOdd() {
     })
 }
 
+/**
+ * convert CSV to JSON
+ */
+
+function convertCsvToJson(filename) {
+    return new Promise((resolve) => {
+  
+      let fileInputName = "public/uploads/" + filename;
+      let content = fs.readFileSync(fileInputName, 'utf8');
+  
+      content = content.replace(/\\r/g, "");
+      fs.writeFileSync(fileInputName, content);
+  
+      //print number as number and not in string
+      csvToJson.formatValueByType().getJsonFromCsv(fileInputName);
+  
+      //as default delimiter is ;
+      var test = csvToJson.fieldDelimiter(';').getJsonFromCsv(fileInputName);
+      let json = csvToJson.getJsonFromCsv("public/uploads/" + filename);
+      
+      resolve(json);
+    })
+      
+  }
+
+function pyramidGraph(filename) {
+    return new Promise((resolve) => {
+        convertCsvToJson(filename).then((json) => {
+            var tab = []
+                for (var i = 0; i < json.length; i++) {
+                    var temp = {
+                        "Year": json[i].Year,
+                        "Odd": json[i].Odd,
+                        "Continent": json[i].Continent,
+                        "Pourcentage": json[i].Pourcentage
+                    }
+                    tab.push(temp);
+                }
+            fs.writeFileSync(__dirname + '/../public/dbPyramid.json', JSON.stringify(tab))
+            resolve();
+        })
+    })
+}
+
+convertDBOdd();
+
+module.exports.pyramidGraph = pyramidGraph;
 module.exports.convertDBOdd = convertDBOdd;
 module.exports.convertDBTheme = convertDBTheme;
 module.exports.convertDBMesure = convertDBMesure;

@@ -58,28 +58,14 @@
                     "field": "pourcentage",
                     "signal": "mp_extent"
                 },
-                {
-                    "type": "bin",
-                    "field": "pourcentage",
-                    "maxbins": 10,
-                    "extent": {
-                        "signal": "mp_extent"
-                    },
-                    "as": [
-                        "mp0",
-                        "mp1"
-                    ]
-                },
+                
                 {
                     "type": "aggregate",
                     "groupby": [
                         "hp0",
                         "hp1",
                         "mpg0",
-                        "mpg1",
-                        "mp0",
-                        "mp1"
-                        
+                        "mpg1"
                     ]
                 }
             ]
@@ -115,8 +101,8 @@
             "type": "linear",
             "zero": true,
             "domain": {
-                "data": "source",
-                "field": "pourcentage"
+                "data": "summary",
+                "field": "count"
             },
             "range": [
                 0,
@@ -145,7 +131,7 @@
     "legends": [
         {
             "size": "size",
-            "title": "Pourcentage",
+            "title": "Occurence ODD",
             "format": "s",
             "encode": {
                 "symbols": {

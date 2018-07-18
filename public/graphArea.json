@@ -1,0 +1,24 @@
+{  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "description": "Comparaison d'accomplissement des ODD entre l'Amérique et l'Europe",
+    "data": { "url": "/dbPyramid.json"},
+    "transform": [
+      {"filter": "datum.Year == 2018"},
+      {"calculate": "datum.Continent == 2 ? 'Amérique' : 'Europe'", "as": "Continent"}
+    ],
+    "mark": "bar",
+    "encoding": {
+      "row": {"field": "Continent", "type": "nominal"},
+      "y": {
+        "aggregate": "sum", "field": "Pourcentage", "type": "quantitative",
+        "axis": {"title": "Pourcentage d'accomplissement"}
+      },
+      "x": {
+        "field": "Odd", "type": "ordinal",
+        "scale": {"rangeStep": 17}
+      },
+      "color": {
+        "field": "Continent", "type": "nominal",
+        "scale": {"range": ["#3fe260", "#1f77b4"]}
+      }
+    }
+  }

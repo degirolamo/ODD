@@ -5,8 +5,35 @@ var themeDB = require('../DB/themeDB');
 var oddDB = require('../DB/oddDB');
 var convertDBToJson = require('../DB/convertDBToJson');
 var objectifDB = require('../DB/objectifDB');
-var csvToJson = require('convert-csv-to-json');
+
 var multer = require('multer');
+
+/**
+ * Store the imported file in uploads 
+ */
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads');
+  },
+  filename: function (req, file, cb) {
+    file.originalname = "resultat" + Date.now() + file.originalname;
+    cb(null, file.originalname);
+  }
+});
+var upload = multer({ storage: storage });
+
+
+/* POST file importation. */
+router.post('/scenario3', upload.single('file'), function (req, res, next) {
+
+  //store the name of the file imported
+  var filename = req.file.originalname;
+
+  convertDBToJson.pyramidGraph(filename).then(()=>{
+    res.redirect('/scenario3');
+  });
+});
+
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -95,52 +122,5 @@ router.get('/mesure', function (req, res, next) {
 router.get('/scenario3', function (req, res, next) {
   res.render('scenario3', { title: 'Scénario3' });
 });
-
-/* POST file importation. */
-router.post('/scenario3', upload.single('file'), function (req, res, next) {
-
-  //store the name of the file imported
-
-  var uploadedFile = name;
-  req.session.filename = uploadedFile;
-
-  res.json('finished success');
-});
-
-/**
- * Store the imported file in uploads 
- */
-var name;
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads');
-  },
-  filename: function (req, file, cb) {
-    name = "temp" + ".csv";
-    cb(null, name);
-  }
-});
-var upload = multer({ storage: storage });
-
-/**
- * convert CSV to JSON
- */
-
-function convertCsvToJson(filename) {
-  let fileInputName = "./uploads/" + filename;
-  let content = fs.readFileSync(fileInputName, 'utf8');
-  content = content.replace(/\\r/g, "");
-  fs.writeFileSync(fileInputName, content);
-
-  //print number as number and not in string
-  csvToJson.formatValueByType().getJsonFromCsv(fileInputName);
-
-  //as default delimiter is ; so we set as ,
-  var test = csvToJson.fieldDelimiter(';').getJsonFromCsv(fileInputName);
-
-  let json = csvToJson.getJsonFromCsv("./uploads/" + filename);
-
-  return json;
-}
 
 module.exports = router;
