@@ -29,7 +29,7 @@ router.post('/scenario3', upload.single('file'), function (req, res, next) {
   //store the name of the file imported
   var filename = req.file.originalname;
 
-  convertDBToJson.pyramidGraph(filename).then(()=>{
+  convertDBToJson.pyramidGraph(filename).then(() => {
     res.redirect('/scenario3');
   });
 });
@@ -38,7 +38,7 @@ router.post('/scenario3', upload.single('file'), function (req, res, next) {
 /* GET home page. */
 router.get('/', function (req, res, next) {
   themeDB.getAllTheme().then((getAllTheme) => {
-    res.sendFile(path.resolve(__dirname + '/../public/test/index.html'));
+    res.sendFile(path.resolve(__dirname + '/../views/index.html'));
   })
 });
 
@@ -53,15 +53,14 @@ router.get('/global', function (req, res, next) {
 /* Post theme form */
 router.post('/', function (req, res, next) {
   var obj = JSON.parse(req.body.linksInput)
-  themeDB.truncateDB().then(() => {
-    themeDB.addDB(obj).then(() => {
-      convertDBToJson.convertDBTheme().then(() => {
+  themeDB.snap();
+    themeDB.truncateDB().then(() => {
+      themeDB.addDB(obj).then(() => {
+        convertDBToJson.convertDBTheme().then(() => {
+        })
+        res.redirect('/global');
       })
-      res.redirect('/global');
     })
-
-  })
-
 });
 
 /* Post Mesure form */

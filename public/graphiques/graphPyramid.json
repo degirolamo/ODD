@@ -15,7 +15,7 @@
     "data": [
       {
         "name": "odd",
-        "url": "/dbPyramid.json"
+        "url": "/dbGraph/dbPyramid.json"
       },
       {
         "name": "oddYear",

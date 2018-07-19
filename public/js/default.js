@@ -38,8 +38,8 @@ function changePercent(result) {
     data: obj,
     type: "POST",
     success: function (result) {
-      vegaEmbed('#view', '/graphMesure.json');
-      vegaEmbed('#view1', '/graphOdd.json');
+      vegaEmbed('#view', '/graphiques/graphMesure.json');
+      vegaEmbed('#view1', '/graphiques/graphOdd.json');
       console.log(result);
     }
   })

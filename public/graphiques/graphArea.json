@@ -1,6 +1,6 @@
 {  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "Comparaison d'accomplissement des ODD entre l'Amérique et l'Europe",
-    "data": { "url": "/dbPyramid.json"},
+    "data": { "url": "/dbGraph/dbPyramid.json"},
     "transform": [
       {"filter": "datum.Year == 2018"},
       {"calculate": "datum.Continent == 2 ? 'Amérique' : 'Europe'", "as": "Continent"}

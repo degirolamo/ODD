@@ -89,7 +89,7 @@
     "data": [
       {
         "name": "source",
-        "url": "/dbMesure.json",
+        "url": "/dbGraph/dbMesure.json",
         "transform": [
           {
             "type": "filter",

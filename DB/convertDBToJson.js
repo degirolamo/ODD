@@ -37,7 +37,7 @@ function convertDBTheme() {
                 }
 
             }
-            fs.writeFileSync(__dirname + '/../public/dbTheme.json', JSON.stringify(tab))
+            fs.writeFileSync(__dirname + '/../public/dbGraph/dbTheme.json', JSON.stringify(tab))
             resolve();
         })
     })
@@ -67,7 +67,7 @@ function convertDBMesure() {
                     tab.push(temp);
                 }
             }
-            fs.writeFileSync(__dirname + '/../public/dbMesure.json', JSON.stringify(tab))
+            fs.writeFileSync(__dirname + '/../public/dbGraph/dbMesure.json', JSON.stringify(tab))
             resolve();
         })
     })
@@ -118,7 +118,7 @@ function convertDBOdd() {
                 }
 
             }
-            fs.writeFileSync(__dirname + '/../public/dbOdd.json', JSON.stringify(tab))
+            fs.writeFileSync(__dirname + '/../public/dbGraph/dbOdd.json', JSON.stringify(tab))
             resolve();
         })
     })
@@ -162,13 +162,11 @@ function pyramidGraph(filename) {
                     }
                     tab.push(temp);
                 }
-            fs.writeFileSync(__dirname + '/../public/dbPyramid.json', JSON.stringify(tab))
+            fs.writeFileSync(__dirname + '/../public/dbGraph/dbPyramid.json', JSON.stringify(tab))
             resolve();
         })
     })
 }
-
-convertDBOdd();
 
 module.exports.pyramidGraph = pyramidGraph;
 module.exports.convertDBOdd = convertDBOdd;

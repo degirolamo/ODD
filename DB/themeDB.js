@@ -1,6 +1,7 @@
 var Theme = require("../objects/theme");
 var database = require("./database");
 var ThemeOdd = require("../objects/themeOdd");
+var screenshot = require('desktop-screenshot');
 
 
 function getAllTheme() {
@@ -40,21 +41,18 @@ function addDB(obj) {
         })
     })
 }
+function snap() {
+    screenshot("Links.png", {
+        quality: 100}, function(error, complete) {
+            if (error)
+                console.log("Screenshot failed", error);
+            else
+                console.log("Screenshot succeeded");
+        })
+    }
 
-// function snap() {
-//     var snapito = require('screenshot');
-//     var screenshot = new snapito('yourapikey');
-  
-//     screenshot.screenshot('/test/index', 'link.png', { screen: 'desktop' }, function (file) {
-//       if (file) {
-//         console.log('The file ' + file + ' was written correctly');
-//       } else {
-//         console.log('Error');
-//       }
-//     });
-//   }
 
-// module.exports.snap = snap;
+module.exports.snap = snap;
 module.exports.getAllTheme = getAllTheme;
 module.exports.truncateDB = truncateDB;
 module.exports.addDB = addDB;

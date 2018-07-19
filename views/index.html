@@ -12,8 +12,8 @@
     <link href="//fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <link href="/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="/css/materialize.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
@@ -25,25 +25,26 @@
 
 
 <body class="jtk-bootstrap jtk-bootstrap-wide">
-   
-            <ul class="tabs tabs-fixed-width tab-demo z-depth-1 pers-navbar">
-                <li class="tab">
-                    <a href="/">Champs thématiques du Valais</a>
-                </li>
-                <li class="tab">
-                    <a href="mesure">Programme gouvernementale</a>
-                </li>
-                <li class="tab">
-                    <a href="scenario3">Comparaison Europe/Amérique</a>
-                </li>
-            </ul>
-        
-    <div class="jtk-page-container">
-        <div class="jtk-container">
 
-            
-            <!-- content -->
-            <script type="jtk" id="tmplNode">
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1 pers-navbar">
+        <li class="tab">
+            <a href="/">Champs thématiques du Valais</a>
+        </li>
+        <li class="tab">
+            <a href="mesure">Programme gouvernementale</a>
+        </li>
+        <li class="tab">
+            <a href="scenario3">Comparaison Amérique/Europe</a>
+        </li>
+    </ul>
+
+    <div class="jtk-page-container">
+        <div class="jtk-container row">
+            <div class="col s11">
+
+
+                <!-- content -->
+                <script type="jtk" id="tmplNode">
                 <div class="connectivity-node">
                     <h3>${id}</h3>
                     <ul>
@@ -58,25 +59,34 @@
                 </div>
             </script>
 
-            <div class="jtk-demo-main" id="jtk-demo-connectivity">
+                <div class="jtk-demo-main" id="jtk-demo-connectivity">
                     <div class="miniview"></div>
 
-                <!-- this is the main drawing area -->
-                <div class="jtk-demo-canvas canvas-wide">
-                    <!-- controls -->
-                    <!-- <div class="controls">
+                    <!-- this is the main drawing area -->
+                    <div class="jtk-demo-canvas canvas-wide">
+                        <!-- controls -->
+                        <!-- <div class="controls">
                         <i class="fa fa-arrows selected-mode" mode="pan" title="Pan Mode"></i>
                         <i class="fa fa-pencil" mode="select" title="Select Mode"></i>
                         <i class="fa fa-home" reset title="Zoom To Fit"></i>
                         <i class="fa fa-plus" add title="Add a Node"></i>
                     </div> -->
-                    
+
+                    </div>
+
+
+                    <!-- the current dataset -->
+
                 </div>
-
-
-                <!-- the current dataset -->
-
             </div>
+            
+            <form id="themeForm" method="POST" class="col s1">
+                <input type="hidden" id="hiddenInput" name="linksInput">
+                <div class="pers-div">
+                    <button class="btn waves-effect waves-light pers-btn" type="submit" onclick="saveLinks()">Submit
+                    </button>
+                </div>
+            </form>
 
             <!-- /content -->
             <script src="/js/jsplumbtoolkit.js"></script>
@@ -93,14 +103,7 @@
     <script src="/js/additional-methods.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
 
-    <form id="themeForm" method="POST">
-        <input type="hidden" id="hiddenInput" name="linksInput">
-        <div class="pers-div">
-            <button class="btn waves-effect waves-light pers-btn" type="submit" onclick="saveLinks()">Submit
-                <i class="material-icons right">send</i>
-            </button>
-        </div>
-    </form>
+
 
     <footer class="page-footer pers-footer">
         <div class="container">

@@ -25,7 +25,7 @@
     "data": [
       {
         "name": "tree",
-        "url": "/dbTheme.json",
+        "url": "/dbGraph/dbTheme.json",
         "transform": [
           {
             "type": "stratify",
