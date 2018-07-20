@@ -71,6 +71,11 @@ var MesureODD = sequelize.define('mesure_odd',{
     pourcentage: Sequelize.INTEGER
 })
 
+
+/**
+ * Relation entre les tables
+ */
+
 Mesure.belongsToMany(ODD_mesure, {through: 'mesure_odd'})
 ODD_mesure.belongsToMany(Mesure, {through: 'mesure_odd'})
 

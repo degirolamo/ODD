@@ -3,6 +3,10 @@ var database = require("./database");
 var MesureOdd = require("../objects/mesureOdd");
 
 
+/**
+ * Fonction pour récupérer tous les objectifs, les mesures et les ODD qui sont liés de la DB
+ */
+
 function getAllObjectif() {
     return new Promise((resolve, reject) => {
         database.Objectif.findAll({
@@ -23,6 +27,10 @@ function getAllObjectif() {
     })
 }
 
+/**
+ * Fonction pour vider la table MesureODD 
+ */
+
 function truncatePercentDB() {
     return new Promise((resolve, reject) => {
         database.MesureODD.truncate({
@@ -32,6 +40,10 @@ function truncatePercentDB() {
         })
     })
 }
+
+/**
+ * Fonction pour remplir la table MesureODD avec les nouvelles données
+ */
 
 function addPercentDB(obj) {
     return new Promise((resolve) => {

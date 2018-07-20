@@ -11,6 +11,10 @@ var mesureOdd = class mesureOdd {
         this.pourcentage = pourcentage;
     }
 
+    /**
+     * retourne un objet utilisable avec Sequelize
+     */
+
     convertToSequelize(){
         return {
             mesureId: this.mesureId,

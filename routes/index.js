@@ -9,8 +9,9 @@ var objectifDB = require('../DB/objectifDB');
 var multer = require('multer');
 
 /**
- * Store the imported file in uploads 
+ * Fonction pour enregistrer le fichier csv dans Uploads
  */
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/uploads');
@@ -23,10 +24,10 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 
-/* POST file importation. */
+/* POST pour l'importation du fichier */
 router.post('/scenario3', upload.single('file'), function (req, res, next) {
 
-  //store the name of the file imported
+  //Enregistre le nom du fichier importé
   var filename = req.file.originalname;
 
   convertDBToJson.pyramidGraph(filename).then(() => {
@@ -79,18 +80,21 @@ router.post('/mesure', function (req, res, next) {
   })
 })
 
+/* GET All Theme. */
 router.get('/DB/themeDB', function (req, res, next) {
   themeDB.getAllTheme().then((getAllTheme) => {
     res.json(getAllTheme);
   })
 });
 
+/* GET All ODD. */
 router.get('/DB/oddDB', function (req, res, next) {
   oddDB.getAllOdd().then((getAllOdd) => {
     res.json(getAllOdd);
   })
 });
 
+/* Post Mesure form */
 router.post('/DB/objectifDB', function (req, res, next) {
   var obj = req.body
   objectifDB.truncatePercentDB().then(() => {

@@ -4,6 +4,10 @@ var ThemeOdd = require("../objects/themeOdd");
 var screenshot = require('desktop-screenshot');
 
 
+/**
+ * Fonction pour récupérer tous les Thèmes et les ODD liés de la DB
+ */
+
 function getAllTheme() {
     return new Promise((resolve, reject) => {
         database.Theme.findAll({
@@ -18,6 +22,10 @@ function getAllTheme() {
     })
 }
 
+/**
+ * Fonction pour vider la table ThemeOdd
+ */
+
 function truncateDB() {
     return new Promise((resolve, reject) => {
         database.ThemeOdd.truncate({
@@ -27,6 +35,10 @@ function truncateDB() {
         })
     })
 }
+
+/**
+ * Fonction pour remplir la table ThemeOdd avec les nouvelles données
+ */
 
 function addDB(obj) {
     return new Promise((resolve) => {
@@ -41,6 +53,11 @@ function addDB(obj) {
         })
     })
 }
+
+/**
+ * Fonction pour prendre la capture d'écran et l'enregistrer à la racine
+ */
+
 function snap() {
     screenshot("Links.png", {
         quality: 100}, function(error, complete) {

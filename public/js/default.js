@@ -6,6 +6,10 @@ $(document).ready(function () {
   });
 });
 
+/**
+ * Fonction pour sauver le nouveau pourcentage après modification et créer les nouveaux objets
+ */
+
 function savePercent() {
   var result = [];
   $(".pourcentage").each(function () {
@@ -24,12 +28,14 @@ function savePercent() {
     result.push(temp);
   });
 
-  console.log("dans le save percent après le each", result);
   changePercent(result);
 }
 
+/**
+ * Fonction AJAX pour rafraîchir uniquement les 2 graphiques et non toute la vue
+ */
+
 function changePercent(result) {
-  console.log("avant ajax", result)
   let obj = {
     array: result
   };
@@ -40,7 +46,6 @@ function changePercent(result) {
     success: function (result) {
       vegaEmbed('#view', '/graphiques/graphMesure.json');
       vegaEmbed('#view1', '/graphiques/graphOdd.json');
-      console.log(result);
     }
   })
 }

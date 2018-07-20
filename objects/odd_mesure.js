@@ -13,8 +13,9 @@ var odd_mesure = class odd_mesure {
     }
 
     /**
-     * Return an object usable by sequelize
+     * retourne un objet utilisable avec Sequelize
      */
+
     convertToSequelize(){
         return{
             id: this.id,

@@ -2,6 +2,10 @@ var database = require("./database");
 var fs = require('fs');
 var csvToJson = require('convert-csv-to-json');
 
+/**
+ * Fonction pour convertir ma DB en fichier JSON adapté au graphique sur les thèmes
+ */
+
 function convertDBTheme() {
     return new Promise((resolve) => {
         database.Theme.findAll({
@@ -43,6 +47,10 @@ function convertDBTheme() {
     })
 }
 
+/**
+ * Fonction pour convertir ma DB en fichier JSON adapté au graphique sur les Mesures
+ */
+
 function convertDBMesure() {
     return new Promise((resolve) => {
         database.Mesure.findAll({
@@ -72,6 +80,10 @@ function convertDBMesure() {
         })
     })
 }
+
+/**
+ * Fonction pour convertir ma DB en fichier JSON adapté au graphique sur les ODD
+ */
 
 function convertDBOdd() {
     return new Promise((resolve) => {
@@ -108,9 +120,20 @@ function convertDBOdd() {
                     }
                 }
                 for (var oddMesureId in percent) {
+                    var result = percent[oddMesureId] / occurence[oddMesureId];
+                    if (result < 26) {
+                        result = 25;
+                    } else if (result < 51) {
+                        result = 50;
+                    } else if (result < 76) {
+                        result = 75;
+                    } else {
+                        result = 100;
+                    }
+
                     var temp = {
                         "name": objectif.name,
-                        "pourcentage": percent[oddMesureId] / occurence[oddMesureId],
+                        "pourcentage": result,
                         "ODD": oddMesureId,
                         "Objectif": objectif.id
                     }
@@ -125,43 +148,49 @@ function convertDBOdd() {
 }
 
 /**
- * convert CSV to JSON
+ * Fonction pour convertir un fichier csv en fichier json
+ * filename : String c'est le nom du fichier csv à transformer
+ * return : fichier json
  */
 
 function convertCsvToJson(filename) {
     return new Promise((resolve) => {
-  
-      let fileInputName = "public/uploads/" + filename;
-      let content = fs.readFileSync(fileInputName, 'utf8');
-  
-      content = content.replace(/\\r/g, "");
-      fs.writeFileSync(fileInputName, content);
-  
-      //print number as number and not in string
-      csvToJson.formatValueByType().getJsonFromCsv(fileInputName);
-  
-      //as default delimiter is ;
-      var test = csvToJson.fieldDelimiter(';').getJsonFromCsv(fileInputName);
-      let json = csvToJson.getJsonFromCsv("public/uploads/" + filename);
-      
-      resolve(json);
+
+        let fileInputName = "public/uploads/" + filename;
+        let content = fs.readFileSync(fileInputName, 'utf8');
+
+        content = content.replace(/\\r/g, "");
+        fs.writeFileSync(fileInputName, content);
+
+        //print number as number and not in string
+        csvToJson.formatValueByType().getJsonFromCsv(fileInputName);
+
+        //as default delimiter is ;
+        var test = csvToJson.fieldDelimiter(';').getJsonFromCsv(fileInputName);
+        let json = csvToJson.getJsonFromCsv("public/uploads/" + filename);
+
+        resolve(json);
     })
-      
-  }
+
+}
+
+/**
+ * Fonction pour convertir ma DB en fichier JSON adapté au graphique sur la conparaison Amérique/Europe
+ */
 
 function pyramidGraph(filename) {
     return new Promise((resolve) => {
         convertCsvToJson(filename).then((json) => {
             var tab = []
-                for (var i = 0; i < json.length; i++) {
-                    var temp = {
-                        "Year": json[i].Year,
-                        "Odd": json[i].Odd,
-                        "Continent": json[i].Continent,
-                        "Pourcentage": json[i].Pourcentage
-                    }
-                    tab.push(temp);
+            for (var i = 0; i < json.length; i++) {
+                var temp = {
+                    "Year": json[i].Year,
+                    "Odd": json[i].Odd,
+                    "Continent": json[i].Continent,
+                    "Pourcentage": json[i].Pourcentage
                 }
+                tab.push(temp);
+            }
             fs.writeFileSync(__dirname + '/../public/dbGraph/dbPyramid.json', JSON.stringify(tab))
             resolve();
         })
