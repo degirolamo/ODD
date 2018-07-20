@@ -5,12 +5,12 @@
     font-weight: 600;
     white-space: nowrap;
     color: white;
-    background-color: #489ea5;
+    background-color: #0198F1;
     border-right: 10px solid ;
 }
 
-.vega-embed .vega-actions a:hover {
-background-color: #5eb4bb;
+.vega-embed .vega-actions a:hover, .vega-embed .vega-actions a:focus, .vega-embed .vega-actions a:active {
+    background-color: #0076D0;
 }
 
 .vega-actions-wrapper {

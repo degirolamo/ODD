@@ -4,13 +4,13 @@ block content
 
     form(enctype="multipart/form-data", method="POST", action='/scenario3')
         .file-field.input-field
-            .btn.pers-btn
+            .btn.pers-btn.file-btn
                 span Fichier CSV
                 input(type='file', name='file')
             .file-path-wrapper
                 input.file-path.validate(type='text', placeholder='Choisir un fichier' required)
         .pers-div
-            button.btn.waves-effect.waves-light.pers-btn(type='submit')
+            button.pers-btn(type='submit')
                 | Submit
     .row
         .col.s8

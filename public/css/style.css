@@ -1,5 +1,6 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-family: "Roboto", "Trebuchet MS" !important;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -33,25 +34,15 @@ a {
   height: 80px;
 }
 .pers-navbar li.tab a {
-  color: black;
+  color: white;
   font-weight: bold;
 }
 .pers-navbar li.tab a span i {
   padding-right: 0.5em;
 }
-.pers-navbar li.tab a:focus {
-  background-color: #0198F1;
-}
-.pers-navbar li.tab a:focus.active {
-  background-color: #0198F1;
-}
-.pers-navbar li.tab a.active {
-  background-color: #0198F1;
-  color: black;
-}
-
-.pers-navbar li.tab a:hover {
-  color: black;
+.pers-navbar li.tab a:focus, .pers-navbar li.tab a:active, .pers-navbar li.tab a:hover {
+  background-color: #0076D0;
+  color:white;
 }
 
 .pers-navbar li.indicator {
@@ -60,11 +51,29 @@ a {
 }
 
 .pers-btn {
-  background-color: white;
-  color: black;
-  box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.14);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: white;
+  background-color: #0198F1;
+  border-right: 10px solid;
+  font-family: sans-serif !important;
+  line-height: 21px;
   margin-bottom: 20px;
+  width: auto !important;
+  height: auto !important;
+  border: 0;
 }
+
+.pers-btn:hover, .pers-btn:focus, .pers-btn:active {
+  background-color: #0076D0;
+}
+
+.file-btn {
+  padding: 0 8px;
+}
+
 .pers-div {
   text-align: right;
 }
